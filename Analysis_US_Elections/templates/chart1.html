@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Analysis 1 Dashboard</title>
+  <!-- import plugin script -->
+  <body>
+        <h1>US Elections 2020 Live Dashboard</h1>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <form action="http://127.0.0.1:5000/analysis1_chart" method="post">
+
+            <p>Biden Keywords <p>
+		<input type="checkbox" name="bidenword" value='biden'> biden <br/>
+        <input type="checkbox" name="bidenword" value='joe'>joe<br/>
+		<input type="checkbox" name="bidenword" value='joe biden'> joe biden <br/>
+        <input type="checkbox" name="bidenword" value='democrats'>democrats<br/>
+		<input type="checkbox" name="bidenword" value='democrat'> democrat <br/>
+        <input type="checkbox" name="bidenword" value='dems'>dems<br/>
+		<input type="checkbox" name="bidenword" value='obama'> obama <br/>
+        <input type="checkbox" name="bidenword" value='kamala'>kamala<br/>
+		<input type="checkbox" name="bidenword" value='harris'>harris<br/>
+		<input type="checkbox" name="bidenword" value='kamala harris'>kamala harris<br/>
+
+
+
+		<p> Trump Keywords </p>
+		<input type="checkbox" name="trumpword" value='trump'> trump <br/>
+        <input type="checkbox" name="trumpword" value='donald'>donald<br/>
+		<input type="checkbox" name="trumpword" value='donald trump'> donald trump <br/>
+        <input type="checkbox" name="trumpword" value='republican'>republican<br/>
+		<input type="checkbox" name="trumpword" value='republicans'> republicans <br/>
+        <input type="checkbox" name="trumpword" value='president trump'>president trump<br/>
+		<input type="checkbox" name="trumpword" value='mike'> mike <br/>
+        <input type="checkbox" name="trumpword" value='pence'>pence<br/>
+		<input type="checkbox" name="trumpword" value='mike pence'>mike pence<br/>
+
+
+        <p> Recount Words </p>
+		<input type="checkbox" name="recountword" value='recount'> recount <br/>
+        <input type="checkbox" name="recountword" value='counting'>counting<br/>
+		<input type="checkbox" name="recountword" value='re-counting'> re-counting <br/>
+        <input type="checkbox" name="recountword" value='fraud'>fraud<br/>
+		<input type="checkbox" name="recountword" value='re-election'> re-election <br/>
+        <input type="checkbox" name="recountword" value='reelection'>reelection<br/>
+		<input type="checkbox" name="recountword" value='fakepolls'> fakepolls <br/>
+        <input type="checkbox" name="recountword" value='fakeballots'>fakeballots<br/>
+		<input type="checkbox" name="recountword" value='fake polls'>fake polls<br/>
+		<input type="checkbox" name="recountword" value='fake ballots'>fake ballots<br/>
+
+        <br/>
+
+
+		<input type="submit" value="Submit">
+        </form>
+  </body>
+</head>
+<!-- bar chart canvas element -->
+<canvas id="myChart1" width="600" height="400"></canvas>
+<script>
+    Chart.defaults.global.responsive = false;
+var ctx = document.getElementById("myChart1").getContext('2d');
+var myChart1 = new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                          labels: ['Twitter', 'Reddit'],
+                          datasets: [{
+                              label: 'Donald Trump',
+                              data: ['{{tt}}', '{{rt}}'],
+                              backgroundColor: [
+                                  'rgba(255, 99, 132, 0.2)',
+                                  'rgba(255, 99, 132, 0.2)',
+                              ],
+                              borderColor: [
+                                  'rgba(255, 99, 132, 1)',
+                                  'rgba(255, 99, 132, 1)',
+                              ],
+                              borderWidth: 1
+                          }, {
+                              label: 'Joe Biden',
+                              data: ['{{tb}}', '{{rb}}'],
+                              backgroundColor: [
+                                  'rgba(54, 162, 235, 0.2)',
+                                  'rgba(54, 162, 235, 0.2)',
+                              ],
+                              borderColor: [
+                                  'rgba(54, 162, 235, 1)',
+                                  'rgba(54, 162, 235, 1)',
+                              ],
+                              borderWidth: 1
+                          }]
+                      },
+                      options: {
+                          title:{
+                              display: true,
+                              text: "Analysis 1: Showing the percentage of supporters for\n" +
+                                  "biden and trump by going through the\n" +
+                                  "recounting of votes in tweets/posts.",
+                                 },
+                          scales: {
+                              yAxes: [{
+                                  ticks: {
+                                      beginAtZero: true
+                                  },
+                              }]
+                          },
+                          animation: {
+                              duration: 5000,
+                              easing: "easeInOutBounce",
+                          }
+                      }
+                  });
+</script>>
+<p id="caption"> X-axis represents the total recount percentage by the supporters and Y-axis represents the candidate's on two different data sources. </p>
+</html>

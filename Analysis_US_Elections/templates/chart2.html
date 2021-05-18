@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Analysis 2 Dashboard</title>
+  <!-- import plugin script -->
+  <body>
+        <h1>US Elections 2020 Live Dashboard</h1>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <form action="http://127.0.0.1:5000/analysis2_chart" method="post">
+            <p>Select appropriate dates to view the analysis results:</p>
+        <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" min="2020-11-15" max="2020-12-15" required pattern="\d{4}-\d{2}-\d{2}">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" min="2020-11-15" max="2020-12-15" required pattern="\d{4}-\d{2}-\d{2}">
+            <input type="submit">
+            <br></br>
+        </form>
+  </body>
+</head>
+<!-- bar chart canvas element -->
+<canvas id="myChart" width="600" height="400"></canvas>
+<script>
+    Chart.defaults.global.responsive = false;
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                          labels: ['Twitter', 'Reddit'],
+                          datasets: [{
+                              label: 'Donald Trump',
+                              data: ['{{t1}}', '{{r1}}'],
+                              backgroundColor: [
+                                  'rgba(255, 99, 132, 0.2)',
+                                  'rgba(255, 99, 132, 0.2)',
+                              ],
+                              borderColor: [
+                                  'rgba(255, 99, 132, 1)',
+                                  'rgba(255, 99, 132, 1)',
+                              ],
+                              borderWidth: 1
+                          }, {
+                              label: 'Joe Biden',
+                              data: ['{{t2}}', '{{r2}}'],
+                              backgroundColor: [
+                                  'rgba(54, 162, 235, 0.2)',
+                                  'rgba(54, 162, 235, 0.2)',
+                              ],
+                              borderColor: [
+                                  'rgba(54, 162, 235, 1)',
+                                  'rgba(54, 162, 235, 1)',
+                              ],
+                              borderWidth: 1
+                          }]
+                      },
+                      options: {
+                          title:{
+                              display: true,
+                              text: "Analysis 2: Which presidential candidate is receiving\n" +
+                                      "higher @mentions after elections’ results\n" +
+                                      "were declared?",
+                                 },
+                          scales: {
+                              yAxes: [{
+                                  ticks: {
+                                      beginAtZero: true
+                                  },
+                              }]
+                          },
+                          animation: {
+                              duration: 5000,
+                              easing: "easeInOutBounce",
+                          }
+                      }
+                  });
+</script>>
+<p id="caption"> X-axis represents the popularity score of the candidates and Y-axis represents the candidate's on two different data sources. </p>
+<p id="caption1"> [NOTE]: Since number of posts is relatively small as compared to tweets, you may sometimes not able to see the plot for reddit data source.</p>
+</html>
